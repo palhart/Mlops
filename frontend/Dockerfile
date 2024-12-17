@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install --no-cache-dir dash requests python-dotenv
+RUN pip install --no-cache-dir dash requests python-dotenv gunicorn
 
 EXPOSE 8050
 
