@@ -1,7 +1,9 @@
 import datetime
 from PIL import Image
 from app.generator.design.image_manager import Image_Manager
+import os
 
+IMAGE_DIR =  "generated_images"
 
 class When_Not_Good():
     name = "When_Not_Good"
@@ -42,6 +44,6 @@ Meme:{"subject": "When I have to run a full marathon, but I haven't trained for 
 
                 date = datetime.datetime.now()
                 image_name = f"{date}.jpg"
-                file_location = f"../generated_images/{image_name}"
+                file_location = os.path.join(IMAGE_DIR, image_name)
                 out.save(file_location)
                 return image_name

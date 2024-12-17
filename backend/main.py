@@ -13,13 +13,8 @@ load_dotenv()
 
 project_root = os.path.abspath(os.path.dirname(__file__))
 
-# Move one level up
-parent_dir = os.path.abspath(os.path.join(project_root, os.pardir))
 
-IMAGE_DIR =  os.path.join(parent_dir, "generated_images")
-
-
-
+IMAGE_DIR =  os.path.join(project_root, "generated_images")
 
 class MemeRequest(BaseModel):
     user_input: str
@@ -55,8 +50,6 @@ def generate_meme_endpoint(meme_request: MemeRequest):
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Failed to generate meme")
-
-
 
 
 

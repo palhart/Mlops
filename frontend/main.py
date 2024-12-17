@@ -1,7 +1,14 @@
+import os
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Get API URL from environment variable (default to localhost)
+api_url = os.getenv('API_URL', 'http://localhost:8000')
 
 # Create the Dash app
 app = dash.Dash(__name__)
@@ -27,7 +34,7 @@ app.layout = html.Div([
         id="meme-container",
         children=html.Img(
             id="meme-image",
-            src="http://localhost:8000/home",  # Default image URL from your API
+            src=f"{api_url}/home",  # Dynamically use API URL
             style={"maxWidth": "500px", "marginTop": "20px"}
         ),
         style={"textAlign": "center"}
@@ -47,20 +54,14 @@ def update_meme(n_clicks, user_input):
         print(f"Button clicked: {n_clicks}, User input: {user_input}")
 
         # Send the user input to the API
-        api_url = "http://localhost:8000/generate_meme"
-        response = requests.post(api_url, json={"user_input": user_input})
+        response = requests.post(f"{api_url}/generate_meme", json={"user_input": user_input})
 
         if response.status_code == 200:
             # Return the URL for the newly generated meme
-            return "http://localhost:8000/generated_images/" + response.json()["meme"], 0
+            return f"{api_url}/generated_images/" + response.json()["meme"], 0
         else:
             print("Error generating meme:", response.text)
-            return "http://localhost:8000/home", 0
+            return f"{api_url}/home", 0
 
     # Return default image when no input or button not clicked
-    return "http://localhost:8000/home", 0
-
-
-# Run the app
-if __name__ == "__main__":
-    app.run_server(debug=True, port=8050)
+    return f"{api_url}/home", 0
