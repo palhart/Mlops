@@ -2,6 +2,10 @@ import datetime
 from PIL import Image
 from app.generator.design.image_manager import Image_Manager
 
+import os
+
+
+IMAGE_DIR =  "generated_images"
 
 class Change_My_Mind():
     name = "Change_My_Mind"
@@ -44,6 +48,6 @@ Meme:{"opinion":"The best way to get a good grade in school is to study hard. "}
                 out = out.convert("RGB")
                 date = datetime.datetime.now()
                 image_name = f"{date}.jpg"
-                file_location = f"../generated_images/{image_name}"
+                file_location = os.path.join(IMAGE_DIR, image_name)
                 out.save(file_location)
                 return image_name
