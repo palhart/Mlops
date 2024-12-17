@@ -65,3 +65,6 @@ def update_meme(n_clicks, user_input):
 
     # Return default image when no input or button not clicked
     return f"{api_url}/home", 0
+
+if __name__ == "__main__":
+    app.run_server(debug=True)
