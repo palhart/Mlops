@@ -30,7 +30,6 @@ def create_memes(user_input, meme_description):
                 meme = eval(f"{meme.name}()")
                 output = generate_output(instruction=meme.instruction, prompt=user_input)
                 cleand_output = output.split("\n")
-                print(f'cleand_output: {cleand_output}')
 
                 json_output = json.loads(cleand_output[0])
 
