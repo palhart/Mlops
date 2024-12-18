@@ -2,6 +2,7 @@ import datetime
 from PIL import Image
 from app.generator.design.image_manager import Image_Manager
 import os
+import shortuuid
 
 IMAGE_GEN =  "Mlops/backend/generated_images"
 IMAGE_STATIC = "Mlops/backend/app/static/meme_pics"
@@ -71,7 +72,7 @@ Meme:{"attempted_solution":"AI making memes", "failure":"The memes are beyond my
             out = Image.alpha_composite(base, overlay_image)
             if out.mode in ("RGBA", "P"):
                 out = out.convert("RGB")
-                date = datetime.datetime.now()
+                date = shortuuid.uuid()
                 image_name = f"{date}.jpg"
                 file_location = os.path.join(IMAGE_GEN, image_name)
                 out.save(file_location)
