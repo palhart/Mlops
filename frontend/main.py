@@ -67,4 +67,4 @@ def update_meme(n_clicks, user_input):
     return f"{api_url}/home", 0
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(debug=True, port=27004, host='0.0.0.0')
