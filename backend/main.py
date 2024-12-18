@@ -52,6 +52,11 @@ def generate_meme_endpoint(meme_request: MemeRequest):
         raise HTTPException(status_code=500, detail="Failed to generate meme")
 
 
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=27010)
+
 
 
 
