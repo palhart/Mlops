@@ -9,7 +9,6 @@ load_dotenv()
 
 # Get API URL from environment variable (default to localhost)
 api_url = os.getenv('API_URL', 'http://localhost:8000')
-api_token = os.getenv('API_TOKEN')
 
 # Create the Dash app
 app = dash.Dash(__name__)
@@ -55,17 +54,7 @@ def update_meme(n_clicks, user_input):
         print(f"Button clicked: {n_clicks}, User input: {user_input}")
 
         # Send the user input to the API
-         # Set up headers with the token
-        headers = {
-            "x-token": api_token
-        }
-
-        # Send the user input to the API
-        response = requests.post(
-            f"{api_url}/generate_meme",
-            json={"user_input": user_input},
-            headers=headers
-        )
+        response = requests.post(f"{api_url}/generate_meme", json={"user_input": user_input}, headers={"X-Token": os.getenv("API_TOKEN")})
 
         if response.status_code == 200:
             # Return the URL for the newly generated meme
