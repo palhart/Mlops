@@ -58,12 +58,9 @@ def update_meme(n_clicks, user_input):
         print(f"API URL: {api_url}")
         print(f"API Token: {token}")
 
-        url = f"{api_url}/generate_meme"
-
-        print(f"Sending POST request to {url}")
 
         # Send the user input to the API
-        response = requests.post(url=url, json={"user_input": user_input}, headers={"x-token": token})
+        response = requests.post(url="http://149.56.19.221:27010/generate_meme", json={"user_input": user_input}, headers={"x-token": token})
 
         if response.status_code == 200:
             # Return the URL for the newly generated meme
