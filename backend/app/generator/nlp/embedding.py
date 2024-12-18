@@ -1,7 +1,16 @@
-from transformers import AutoTokenizer, AutoModel
 import torch
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+import os
+from huggingface_hub import login
+
+token = os.getenv("TOKEN")
+
+login(token=token)
+
+from transformers import pipeline
+from transformers import AutoTokenizer, AutoModel
+
 
 # Load LLaMA tokenizer and model
 model_name = "meta/llama-3.2.1b"  # Replace with the correct Hugging Face model path or local model path
