@@ -1,41 +1,21 @@
-import torch
+from sentence_transformers import SentenceTransformer
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-import os
-from huggingface_hub import login
+from scipy.spatial.distance import cosine
 
-token = os.getenv("TOKEN")
+# Use a more powerful model
+model = SentenceTransformer('all-mpnet-base-v2')
 
-login(token=token)
-
-from transformers import pipeline
-from transformers import AutoTokenizer, AutoModel
-
-
-# Load LLaMA tokenizer and model
-model_name = "meta/llama-3.2.1b"  # Replace with the correct Hugging Face model path or local model path
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModel.from_pretrained(model_name)
-
-# Function to get embeddings from LLaMA
 def get_embedding(text):
-    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
-    with torch.no_grad():
-        outputs = model(**inputs)
-    # Use the mean of the token embeddings (last hidden state) for the final embedding
-    embeddings = outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
-    return embeddings
+    return model.encode(text, normalize_embeddings=True)
 
-# Semantic search function
 def semantic_search(documents, meme_description):
-    # Generate embeddings for documents and meme description
-    document_embeddings = np.array([get_embedding(doc) for doc in documents])
-    meme_embedding = get_embedding(meme_description).reshape(1, -1)
+    # Generate embeddings
+    document_embeddings = model.encode(documents, normalize_embeddings=True)
+    meme_embedding = get_embedding(meme_description)
     
     # Compute cosine similarities
-    similarities = cosine_similarity(document_embeddings, meme_embedding).flatten()
+    similarities = np.dot(document_embeddings, meme_embedding)
     
-    # Rank results
-    ranked_indices = np.argsort(similarities)[::-1]
-    ranked_results = [(documents[i], similarities[i]) for i in ranked_indices]
-    return ranked_results
+    # Find the most similar document
+    most_similar_index = np.argmax(similarities)
+    return documents[most_similar_index]
