@@ -3,8 +3,8 @@ from PIL import Image
 from app.generator.design.image_manager import Image_Manager
 import os
 
-IMAGE_DIR =  "generated_images"
-
+IMAGE_GEN =  "Mlops/backend/generated_images"
+IMAGE_STATIC = "Mlops/backend/app/static/meme_pics"
 
 class Poor_Fix():
     name = "Poor_Fix"
@@ -37,7 +37,7 @@ Meme:{"subject":"I am going to ramble", "action":"Let's see what happens."}
 """
 
     def create(self, meme_text):
-        with Image.open(f"app/static/meme_pics/{self.name.lower()}.jpg").convert(
+        with Image.open(f"{IMAGE_STATIC}/{self.name.lower()}.jpg").convert(
             "RGBA"
         ) as base:
 
@@ -64,6 +64,6 @@ Meme:{"subject":"I am going to ramble", "action":"Let's see what happens."}
                 # User.objects.filter()
                 date = datetime.datetime.now()
                 image_name = f"{date}.jpg"
-                file_location = os.path.join(IMAGE_DIR, image_name)
+                file_location = os.path.join(IMAGE_GEN, image_name)
                 out.save(file_location)
                 return image_name

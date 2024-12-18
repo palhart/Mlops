@@ -53,8 +53,14 @@ def update_meme(n_clicks, user_input):
     if n_clicks and user_input:
         print(f"Button clicked: {n_clicks}, User input: {user_input}")
 
+        token = os.getenv("API_TOKEN")
+
+        print(f"API URL: {api_url}")
+        print(f"API Token: {token}")
+
+
         # Send the user input to the API
-        response = requests.post(f"{api_url}/generate_meme", json={"user_input": user_input})
+        response = requests.post(url="http://149.56.19.221:27010/generate_meme", json={"user_input": user_input}, headers={"x-token": token})
 
         if response.status_code == 200:
             # Return the URL for the newly generated meme
@@ -67,4 +73,4 @@ def update_meme(n_clicks, user_input):
     return f"{api_url}/home", 0
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(debug=True, port=27004, host='0.0.0.0')
