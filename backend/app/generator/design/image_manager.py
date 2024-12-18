@@ -25,7 +25,7 @@ class Image_Manager:
             overlay_image = Image.new("RGBA", base.size, (0, 0, 0, 0))
             if wrapped_width is not None:
                 text = Helper.wrap(text, wrapped_width)
-            font_path = os.getenv("FONT_PATH")
+            font_path = 'Mlops/backend/app/static/fonts/NimbusRoman-Regular.otf'
             font = ImageFont.truetype(font_path, font_size)
             draw = ImageDraw.Draw(overlay_image)
             fill = (0, 0, 0, 255)
