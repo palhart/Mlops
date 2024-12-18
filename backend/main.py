@@ -23,7 +23,7 @@ class MemeRequest(BaseModel):
 
 # Dependency to validate token
 def validate_token(x_token: str = Header(...)):
-    if x_token != API_TOKEN:
+    if x_token.strip() != API_TOKEN.strip():
         raise HTTPException(status_code=401, detail="Invalid or missing token")
 
 
