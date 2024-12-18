@@ -7,8 +7,7 @@ from transformers import pipeline
 
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-pipe = pipeline("text-generation", model="facebook/opt-350m", device=device )
-
+pipe = pipeline("text-generation", model="meta-llama/Llama-3.2-1B", device=device)
 
 def generate_output(instruction, prompt):
 
