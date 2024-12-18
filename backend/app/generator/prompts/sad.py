@@ -44,7 +44,7 @@ Meme:{"sad_part": "it doesn't matter if we're happy"}
 """
 
     def create(self, meme_text):
-        with Image.open(f"{IMAGE_GEN}/{self.name.lower()}.jpg").convert(
+        with Image.open(f"{IMAGE_STATIC}/{self.name.lower()}.jpg").convert(
             "RGBA"
         ) as base:
             
@@ -63,6 +63,6 @@ Meme:{"sad_part": "it doesn't matter if we're happy"}
 
                 date = datetime.datetime.now()
                 image_name = f"{date}.jpg"
-                file_location = os.path.join(IMAGE_STATIC, image_name)
+                file_location = os.path.join(IMAGE_GEN, image_name)
                 out.save(file_location)
                 return image_name
