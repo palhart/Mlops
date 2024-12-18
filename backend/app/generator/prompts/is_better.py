@@ -2,6 +2,7 @@ import datetime
 from PIL import Image
 from app.generator.design.image_manager import Image_Manager
 import os
+import shortuuid
 
 IMAGE_GEN =  "Mlops/backend/generated_images"
 IMAGE_STATIC = "Mlops/backend/app/static/meme_pics"
