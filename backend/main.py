@@ -1,7 +1,7 @@
 from fastapi.responses import FileResponse
 
 from app.generator.generate_meme import generate_meme
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import os
@@ -16,8 +16,15 @@ project_root = os.path.abspath(os.path.dirname(__file__))
 
 IMAGE_DIR =  os.path.join(project_root, "generated_images")
 
+API_TOKEN = os.getenv("API_TOKEN")
+
 class MemeRequest(BaseModel):
     user_input: str
+
+# Dependency to validate token
+def validate_token(x_token: str = Header(...)):
+    if x_token != API_TOKEN:
+        raise HTTPException(status_code=401, detail="Invalid or missing token")
 
 
 @app.get("/")
