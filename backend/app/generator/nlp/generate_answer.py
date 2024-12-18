@@ -2,6 +2,9 @@ from huggingface_hub import login
 import torch
 import os
 
+token = os.getenv("TOKEN")
+
+login(token=token)
 
 from transformers import pipeline
 
