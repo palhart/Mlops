@@ -78,7 +78,7 @@ Meme:{"worse":"better","better":"better 2.0"}
             out = Image.alpha_composite(base, overlay_image)
             if out.mode in ("RGBA", "P"):
                 out = out.convert("RGB")
-                date = datetime.datetime.now()
+                date = shortuuid.uuid()
                 image_name = f"{date}.jpg"
                 file_location = os.path.join(IMAGE_GEN, image_name)
                 out.save(file_location)

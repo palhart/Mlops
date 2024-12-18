@@ -62,7 +62,6 @@ Meme:{"subject":"I am going to ramble", "action":"Let's see what happens."}
             out = Image.alpha_composite(base, overlay_image)
             if out.mode in ("RGBA", "P"):
                 out = out.convert("RGB")
-                # User.objects.filter()
                 date = shortuuid.uuid()
                 image_name = f"{date}.jpg"
                 file_location = os.path.join(IMAGE_GEN, image_name)
